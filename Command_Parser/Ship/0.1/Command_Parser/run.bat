@@ -1,0 +1,1 @@
+java -jar Command_Parser-1.0-SNAPSHOT.jar
