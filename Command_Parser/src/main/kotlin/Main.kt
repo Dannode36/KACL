@@ -1,9 +1,14 @@
 fun main() {
     //<Commands>
     var commands = CommandInit.Com_Init()
-
+    println("------------------------------------------------------------------------")
+    println("Welcome to Danndode36's Command Line. Type 'help' for a list of commands")
+    println("------------------------------------------------------------------------")
     while (true){
-        var input = readLine()?.split(" ")
+        var input = readLine()?.trim()?.split(Regex(" +"))
+
+        input = input?.toMutableList()
+
         if (input == null){
             continue
         }
