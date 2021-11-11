@@ -18,7 +18,7 @@ fun main() {
             curCom.action.invoke(input)
         }
         else{
-            println("Command '${input[0]}' not found. Try the 'help' command for a list of all commands")
+            println("Command '${input[0]}' nost found. Try the 'help' command for a list of all commands")
         }
     }
 }

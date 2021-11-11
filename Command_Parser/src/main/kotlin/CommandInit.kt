@@ -148,6 +148,10 @@ class CommandInit{
                         "                            ░░██▓▓▓▓██▓▓░░▓▓▓▓▓▓▓▓██░░                                \n")
             }
 
+            var write = Command("!wf", "(!wf <file name> <content>) Writes to a new file with the specified name, and content !NOT IMPLEMENTED!") {
+                println("COMMAND NOT IMPLEMENTED")
+            }
+
             commands = mapOf<String, Command>(
                 hello.name to hello,
                 help.name to help,
