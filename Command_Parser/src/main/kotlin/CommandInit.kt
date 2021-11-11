@@ -1,5 +1,3 @@
-//package com.mkyong.crypto.bytes;
-
 import command.tools.StringToBinary
 import java.time.LocalDateTime
 
@@ -8,7 +6,7 @@ class CommandInit{
         fun comInit(): Map<String, Command>{
             var commands = emptyMap<String, Command>()
 
-            var help = Command("help", "list all available commands") { input ->
+            val help = Command("help", "list all available commands") { input ->
                 println("-----------------------------------------------------------------")
                 for (command in commands){
                     println(command.value.name + ": " + command.value.desc)
@@ -16,9 +14,9 @@ class CommandInit{
                 println("-----------------------------------------------------------------")
             }
 
-            var hello = Command("hello", "(hello) hi") { input -> println("hi") }
+            val hello = Command("hello", "(hello) hi") { input -> println("hi") }
 
-            var repeat = Command("repeat", "(repeat <input>) repeats input") { input ->
+            val repeat = Command("repeat", "(repeat <input>) repeats input") { input ->
                 if(input.count() == 3){
                     println("Found Increment")
                     try {
@@ -37,44 +35,44 @@ class CommandInit{
                 }
             }
 
-            var dt = Command("dt", "(dt) prints OS date and time [-t prints only time] [-d prints only date]") { input ->
-                var timeNow = LocalDateTime.now();
-                //var date = LocalDateTime.now();
+            val dt = Command("dt", "(dt) prints OS date and time [-t prints only time] [-d prints only date]") { input ->
+                val timeNow = LocalDateTime.now()
+                //var date = LocalDateTime.now()
 
                 if (input.contains("-d")){
                     var time = timeNow.toString()
                     time = time.substring(0, time.indexOf("T"))
                     time = time.replace('.', ' ')
-                    println("Current date: $time");
+                    println("Current date: $time")
                 }
                 else if(input.contains("-t")){
                     var time = timeNow.toString()
                     time = time.substring(time.indexOf("T"))
                     time = time.substring(0, time.indexOf("."))
                     time = time.replace('T', ' ').trim()
-                    println("Current time: $time");
+                    println("Current time: $time")
                 }
                 else{
                     var time = timeNow.toString().replace('T', ' ')
                     time = time.substring(0, time.indexOf("."))
-                    println("Current date and time: $time");
+                    println("Current date and time: $time")
                 }
             }
 
-            var tbin = Command("tbin", "(tbin <input>) converts a string to a binary sequence") { input ->
+            val tbin = Command("tbin", "(tbin <input>) converts a string to a binary sequence") { input ->
 
-                var converter = StringToBinary()
+                val converter = StringToBinary()
                 converter.strToBinary(input[1])
                // println(Integer.toBinaryString(input.toInt()));
             }
 
-            var tstr = Command("!tstr", "(!tstr <input>) converts a binary sequence to a string !NOT IMPLEMENTED!") { input ->
-                var converter = StringToBinary()
+            val tstr = Command("!tstr", "(!tstr <input>) converts a binary sequence to a string !NOT IMPLEMENTED!") { input ->
+                val converter = StringToBinary()
                 converter.strToBinary(input[1])
                 // println(Integer.toBinaryString(input.toInt()));
             }
 
-            var weeb = Command("uwu", "hehe"){
+            val weeb = Command("uwu", "hehe"){
                 println("  ░░      ░░        ░░░░    ▓▓██████████████████████████                              \n" +
                         "░░░░██▓▓▓▓              ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░████                          \n" +
                         "░░▓▓░░░░▒▒████▓▓    ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██▓▓                      \n" +
