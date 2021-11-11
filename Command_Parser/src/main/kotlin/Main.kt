@@ -1,6 +1,6 @@
 fun main() {
     //<Commands>
-    var commands = CommandInit.Com_Init()
+    var commands = CommandInit.comInit()
     println("------------------------------------------------------------------------")
     println("Welcome to Danndode36's Command Line. Type 'help' for a list of commands")
     println("------------------------------------------------------------------------")
