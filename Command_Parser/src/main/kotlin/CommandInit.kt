@@ -31,8 +31,8 @@ class CommandInit{
                     }
                 }
                 else {
-                    println(input[1])
-                }j
+                    printn(input[1])
+                }
             }
 
             val dt = Command("dt", "(dt) prints OS date and time [-t prints only time] [-d prints only date]") { input ->
