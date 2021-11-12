@@ -1,4 +1,6 @@
 import command.tools.StringToBinary
+import java.io.File
+import java.io.FileNotFoundException
 import java.time.LocalDateTime
 
 object CommandInit{
@@ -148,8 +150,39 @@ object CommandInit{
                     "                            ░░██▓▓▓▓██▓▓░░▓▓▓▓▓▓▓▓██░░                                \n")
         }
 
-        var write = Command("!wf", "(!wf <file name> <content>) Writes to a new file with the specified name, and content !NOT IMPLEMENTED!") {
-            println("COMMAND NOT IMPLEMENTED")
+        var wf = Command("wf", "(wf <file name> <content>) Writes to a new text file with the specified name and content") { input ->
+            var content = ""
+            var i = 0
+            if(input.count() > 3){
+                for (string in input){
+                    if (i > 1){
+                        content += "$string "
+                    }
+                    i++
+                }
+                File("${input[1]}.txt").writeText(content.trim())
+            }
+            else if (input.count() == 3){
+                content = input[2]
+                File("${input[1]}.txt").writeText(content.trim())
+            }
+            else if (input.count() < 3){
+                println("ERROR: Please specify a file name and the file content")
+            }
+        }
+
+        var rf = Command("rf", "(rf <file path>) Reads a text file with from specified path and prints the content") { input ->
+            try {
+                if (input.count() >= 2){
+                    println(File(input[1]).readText(Charsets.UTF_8))
+                }
+                else{
+                    println("ERROR: Please specify a file name")
+                }
+            }
+            catch (e: FileNotFoundException){
+                println("ERROR: Could not find the file \"${input[1]}\"")
+            }
         }
 
         commands = mapOf<String, Command>(
@@ -159,7 +192,9 @@ object CommandInit{
             dt.name to dt,
             tbin.name to tbin,
             tstr.name to tstr,
-            weeb.name to weeb
+            weeb.name to weeb,
+            wf.name to wf,
+            rf.name to rf
         )
         return commands
     }
