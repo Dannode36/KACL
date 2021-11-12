@@ -7,15 +7,15 @@ class StringToBinary {
         for (i in 0 until n) {
             // convert each char to
             // ASCII value
-            var `val` = Integer.valueOf(s[i].code)
+            var value = Integer.valueOf(s[i].code)
 
             // Convert ASCII value to binary
             var bin = ""
-            while (`val` > 0) {
-                bin += if (`val` % 2 == 1) {
+            while (value > 0) {
+                bin += if (value % 2 == 1) {
                     '1'
                 } else '0'
-                `val` /= 2
+                value /= 2
             }
             bin = reverse(bin)
             println("$bin ")
