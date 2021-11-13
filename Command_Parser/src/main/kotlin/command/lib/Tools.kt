@@ -2,7 +2,7 @@ package command.lib
 
 import Command
 import command.CommandInit
-import java.time.LocalDateTime
+import command.tools.DateTimeGetter
 
 object Tools {
     const val name = "Tools"
@@ -20,24 +20,15 @@ object Tools {
 
     val dt = Command("dt", "" +
             "(dt) prints OS date and time [-t prints only time] [-d prints only date]") { input ->
-        val timeNow = LocalDateTime.now()
-        //var date = LocalDateTime.now()
 
         if (input.contains("-d")) {
-            var time = timeNow.toString()
-            time = time.substring(0, time.indexOf("T"))
-            time = time.replace('.', ' ')
-            println("Current date: $time")
-        } else if (input.contains("-t")) {
-            var time = timeNow.toString()
-            time = time.substring(time.indexOf("T"))
-            time = time.substring(0, time.indexOf("."))
-            time = time.replace('T', ' ').trim()
-            println("Current time: $time")
-        } else {
-            var time = timeNow.toString().replace('T', ' ')
-            time = time.substring(0, time.indexOf("."))
-            println("Current date and time: $time")
+            println("Current date: ${DateTimeGetter.GetDate()}")
+        }
+        else if (input.contains("-t")) {
+            println("Current time: ${DateTimeGetter.GetTime()}")
+        }
+        else {
+            println("Current date and time: ${DateTimeGetter.GetDateTime()}")
         }
     }
 
