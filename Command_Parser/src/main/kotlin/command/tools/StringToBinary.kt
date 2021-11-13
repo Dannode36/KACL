@@ -1,6 +1,6 @@
 package command.tools
 
-class StringToBinary {
+object StringToBinary {
     // utility function
     fun strToBinary(s: String) {
         val n = s.length
