@@ -1,81 +1,33 @@
-import command.tools.StringToBinary
-import java.io.File
-import java.io.FileNotFoundException
-import java.time.LocalDateTime
+package command.lib
 
-object CommandInit{
-    fun comInit(): Map<String, Command>{
-        var commands = emptyMap<String, Command>()
+import Command
 
-        val help = Command("help", "list all available commands") { input ->
-            println("-----------------------------------------------------------------")
-            for (command in commands){
-                println(command.value.name + ": " + command.value.desc)
-            }
-            println("-----------------------------------------------------------------")
-        }
+object Misc {
+    const val name = "Misc"
 
-        val hello = Command("hello", "(hello) hi") { input -> println("hi") }
+    val hello = Command("hello", "(hello) hi") { input -> println("hi") }
 
-        val repeat = Command("repeat", "(repeat <input>) repeats input") { input ->
-            val length = 3
-            if(input.count() == length){
-                println("Found Increment")
-                try {
-                    var i = 0
-                    while(i < input[2].trim().toInt()){
-                        println(input[1])
-                        i++
-                    }
+    val repeat = Command("repeat", "(repeat <input>) repeats input") { input ->
+        val length = 3
+        if (input.count() == length) {
+            println("Found Increment")
+            try {
+                var i = 0
+                while (i < input[2].trim().toInt()) {
+                    println(input[1])
+                    i++
                 }
-                catch(e: NumberFormatException){
-                    println("Expected \"Int\" found \"${input[2]::class.simpleName}\"")
-                }
+            } catch (e: NumberFormatException) {
+                println("Expected \"Int\" found \"${input[2]::class.simpleName}\"")
             }
-            else {
-                println(input[1])
-            }
+        } else {
+            println(input[1])
         }
+    }
 
-        val dt = Command("dt", "(dt) prints OS date and time [-t prints only time] [-d prints only date]") { input ->
-            val timeNow = LocalDateTime.now()
-            //var date = LocalDateTime.now()
-
-            if (input.contains("-d")){
-                var time = timeNow.toString()
-                time = time.substring(0, time.indexOf("T"))
-                time = time.replace('.', ' ')
-                println("Current date: $time")
-            }
-            else if(input.contains("-t")){
-                var time = timeNow.toString()
-                time = time.substring(time.indexOf("T"))
-                time = time.substring(0, time.indexOf("."))
-                time = time.replace('T', ' ').trim()
-                println("Current time: $time")
-            }
-            else{
-                var time = timeNow.toString().replace('T', ' ')
-                time = time.substring(0, time.indexOf("."))
-                println("Current date and time: $time")
-            }
-        }
-
-        val tbin = Command("tbin", "(tbin <input>) converts a string to a binary sequence") { input ->
-
-            val converter = StringToBinary()
-            converter.strToBinary(input[1])
-           // println(Integer.toBinaryString(input.toInt()));
-        }
-
-        val tstr = Command("!tstr", "(!tstr <input>) converts a binary sequence to a string !NOT IMPLEMENTED!") { input ->
-            val converter = StringToBinary()
-            converter.strToBinary(input[1])
-            // println(Integer.toBinaryString(input.toInt()));
-        }
-
-        val weeb = Command("uwu", "hehe"){
-            println("  ░░      ░░        ░░░░    ▓▓██████████████████████████                              \n" +
+    val weeb = Command("uwu", "hehe") {
+        println(
+            "  ░░      ░░        ░░░░    ▓▓██████████████████████████                              \n" +
                     "░░░░██▓▓▓▓              ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░████                          \n" +
                     "░░▓▓░░░░▒▒████▓▓    ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██▓▓                      \n" +
                     "  ██▓▓░░░░░░░░▒▒████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓      ░░████████████\n" +
@@ -147,55 +99,12 @@ object CommandInit{
                     "                            ▓▓▒▒▒▒▒▒▓▓      ██▒▒▒▒▒▒██                                \n" +
                     "                            ▓▓▒▒▒▒▒▒▒▒▓▓░░██▒▒▒▒▒▒▒▒██                                \n" +
                     "                            ██▒▒▒▒▒▒▒▒▓▓  ▓▓▒▒▒▒▒▒▒▒██                                \n" +
-                    "                            ░░██▓▓▓▓██▓▓░░▓▓▓▓▓▓▓▓██░░                                \n")
-        }
-
-        var wf = Command("wf", "(wf <file name> <content>) Writes to a new text file with the specified name and content") { input ->
-            var content = ""
-            var i = 0
-            if(input.count() > 3){
-                for (string in input){
-                    if (i > 1){
-                        content += "$string "
-                    }
-                    i++
-                }
-                File("${input[1]}.txt").writeText(content.trim())
-            }
-            else if (input.count() == 3){
-                content = input[2]
-                File("${input[1]}.txt").writeText(content.trim())
-            }
-            else if (input.count() < 3){
-                println("ERROR: Please specify a file name and the file content")
-            }
-        }
-
-        var rf = Command("rf", "(rf <file path>) Reads a text file with from specified path and prints the content") { input ->
-            try {
-                if (input.count() >= 2){
-                    println(File(input[1]).readText(Charsets.UTF_8))
-                }
-                else{
-                    println("ERROR: Please specify a file name")
-                }
-            }
-            catch (e: FileNotFoundException){
-                println("ERROR: Could not find the file \"${input[1]}\"")
-            }
-        }
-
-        commands = mapOf<String, Command>(
-            hello.name to hello,
-            help.name to help,
-            repeat.name to repeat,
-            dt.name to dt,
-            tbin.name to tbin,
-            tstr.name to tstr,
-            weeb.name to weeb,
-            wf.name to wf,
-            rf.name to rf
+                    "                            ░░██▓▓▓▓██▓▓░░▓▓▓▓▓▓▓▓██░░                                \n"
         )
-        return commands
     }
+    val commands = mapOf(
+        hello.name to hello,
+        repeat.name to repeat,
+        weeb.name to weeb
+    )
 }
