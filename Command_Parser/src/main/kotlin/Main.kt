@@ -18,6 +18,10 @@ fun main() {
             continue
         }
 
+        if (input[0] == "stop" || input[0] == "exit" || input[0] == "exeunt"){
+            break
+        }
+
         var curCom: Command? = null
 
         for (cat in categories){
@@ -34,5 +38,4 @@ fun main() {
             println("Command '${input[0]}' not found. Try the 'help' command for a list of all commands")
         }
     }
-    var stop = readLine()
 }
