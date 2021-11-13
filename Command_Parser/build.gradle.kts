@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "me.craft"
-version = "skcp_1.2.2"
+version = "skcp_1.2.3"
 
 repositories {
     mavenCentral()
