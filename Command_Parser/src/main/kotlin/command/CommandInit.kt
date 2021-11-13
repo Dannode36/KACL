@@ -13,8 +13,8 @@ object CommandInit{
         categories = mapOf(
             Converters.name to Converters.commands,
             FileSys.name to FileSys.commands,
+            Tools.name to Tools.commands,
             Misc.name to Misc.commands,
-            Tools.name to Tools.commands
         )
         return categories
     }

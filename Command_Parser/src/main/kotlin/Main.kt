@@ -1,8 +1,11 @@
 import command.CommandInit
+import command.lib.Tools
 
 fun main() {
-    //<Commands>
     var categories = CommandInit.comInit()
+
+    //categories["Tools"]?.get("build")?.action?.invoke(listOf(""))
+    //categories["Tools"]?.get("build")?.action?.invoke(listOf(""))
     println("------------------------------------------------------------------------")
     println("Welcome to Danndode36's Command Line. Type 'help' for a list of commands")
     println("------------------------------------------------------------------------")
@@ -19,11 +22,9 @@ fun main() {
 
         for (cat in categories){
             if(cat.value.containsKey(input[0])){
-                println("Found Command")
                 curCom = cat.value[input[0]]
                 break
             }
-            println("Checked")
         }
 
         if (curCom != null){
@@ -33,4 +34,5 @@ fun main() {
             println("Command '${input[0]}' not found. Try the 'help' command for a list of all commands")
         }
     }
+    var stop = readLine()
 }

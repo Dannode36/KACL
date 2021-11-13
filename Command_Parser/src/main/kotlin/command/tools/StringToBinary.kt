@@ -18,7 +18,7 @@ object StringToBinary {
                 value /= 2
             }
             bin = reverse(bin)
-            println("$bin ")
+            print("$bin ")
         }
     }
 
