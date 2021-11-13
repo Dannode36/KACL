@@ -8,8 +8,7 @@ object Converters {
 
     val tbin = Command("tbin", "(tbin <input>) converts a string to a binary sequence") { input ->
 
-        val converter = StringToBinary()
-        converter.strToBinary(input[1])
+        StringToBinary.strToBinary(input[1])
         // println(Integer.toBinaryString(input.toInt()));
     }
 
@@ -17,8 +16,7 @@ object Converters {
         "!tstr", "" +
                 "(!tstr <input>) converts a binary sequence to a string !NOT IMPLEMENTED!"
     ) { input ->
-        val converter = StringToBinary()
-        converter.strToBinary(input[1])
+        StringToBinary.strToBinary(input[1])
         // println(Integer.toBinaryString(input.toInt()));
     }
 
