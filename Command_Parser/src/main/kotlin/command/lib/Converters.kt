@@ -1,16 +1,14 @@
 package command.lib
 
-import Command
+import command.Command
 import command.tools.StringToBinary
-import java.io.File
 
 object Converters {
     const val name = "Converters"
 
-    val tbin = Command("tbin", "(tbin <input>) converts a string to a binary sequence") { input ->
-
+    private val tbin = Command("tbin", "(tbin <input>) converts a string to a binary sequence"){ input ->
         var i = 0
-        var content: String = ""
+        var content = ""
         // println(Integer.toBinaryString(input.toInt()));
         if (input.count() > 2) {
             for (string in input) {
@@ -20,27 +18,29 @@ object Converters {
                 i++
             }
             StringToBinary.strToBinary(content.trim())
-            println("")
+            return@Command "/n"
         }
         else if (input.count() == 2) {
             StringToBinary.strToBinary(input[1])
-            println("")
+            return@Command "/n"
         }
         else if (input.count() < 3) {
-            println("ERROR: Please enter the text you want to convert")
+            //println("ERROR: Please enter the text you want to convert")
+            return@Command "ERROR: Please enter the text you want to convert"
         }
+        return@Command "Something bad happened"
     }
 
-    val tstr = Command(
-        "!tstr", "" +
-                "(!tstr <input>) converts a binary sequence to a string !NOT IMPLEMENTED!"
-    ) { input ->
-        StringToBinary.strToBinary(input[1])
-        // println(Integer.toBinaryString(input.toInt()));
-    }
+//    private val tstr = Command(
+//        "!tstr", "" +
+//                "(!tstr <input>) converts a binary sequence to a string !NOT IMPLEMENTED!"
+//    ) { input ->
+//        StringToBinary.strToBinary(input[1])
+//        return@Command Integer.toBinaryString(input.toInt())
+//    }
 
     val commands = mapOf(
         tbin.name to tbin,
-        tstr.name to tstr
+        //tstr.name to tstr
     )
 }

@@ -1,13 +1,13 @@
+import command.Command
 import command.CommandInit
-import command.lib.Tools
 
 fun main() {
-    var categories = CommandInit.comInit()
+    val categories = CommandInit.comInit()
 
     //categories["Tools"]?.get("build")?.action?.invoke(listOf(""))
     //categories["Tools"]?.get("build")?.action?.invoke(listOf(""))
     println("------------------------------------------------------------------------")
-    println("Welcome to Danndode36's Command Line. Type 'help' for a list of commands")
+    println("Welcome to Dannode36's command.Command Line. Type 'help' for a list of commands")
     println("------------------------------------------------------------------------")
     while (true){
         var input = readLine()?.trim()?.split(Regex(" +"))
@@ -32,10 +32,10 @@ fun main() {
         }
 
         if (curCom != null){
-            curCom.action.invoke(input)
+            println(curCom.action.invoke(input))
         }
         else{
-            println("Command '${input[0]}' not found. Try the 'help' command for a list of all commands")
+            println("command.Command '${input[0]}' not found. Try the 'help' command for a list of all commands")
         }
     }
 }

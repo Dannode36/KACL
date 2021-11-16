@@ -1,6 +1,5 @@
 package command
 
-import Command
 import command.lib.Converters
 import command.lib.FileSys
 import command.lib.Misc
