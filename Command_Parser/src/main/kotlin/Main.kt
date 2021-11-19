@@ -49,14 +49,19 @@ fun main() {
             var parsed: Triple<Command?, MutableList<String>, Int?>
 
 
-            if (command == null){
+            if (command == null || i.contains(Regex(";\$"))){
+                //println("Found Argument")
                 arguments.add(i)
                 continue
             }
             else{
                 parsed = Triple(command, arguments, index)
                 foundCommands.add(parsed)
-                input[tempInput.indexOf(i)] = i.replace(parsed.first.name, parsed.first.action.invoke(parsed.second))
+                var replaceString = ""
+                for (str in parsed.second){
+                    replaceString += str + ""
+                }
+                input[tempInput.indexOf(i)] = i.replace(replaceString.trim(), parsed.first.action.invoke(parsed.second))
             }
             println(arguments)
         }
