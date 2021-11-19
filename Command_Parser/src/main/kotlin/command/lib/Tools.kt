@@ -3,12 +3,11 @@ package command.lib
 import command.Command
 import command.CommandInit
 import command.tools.DateTimeGetter
-import java.io.File
 
 object Tools {
     const val name = "Tools"
 
-    private val help = Command("help", "list all available commands") {
+    private val help = Command(".help", "list all available commands") {
         var print = ""
         print += "------------------------------------------------------------------------" + System.lineSeparator()
         for (category in CommandInit.categories) {
@@ -21,7 +20,7 @@ object Tools {
         return@Command print
     }
 
-    private val dt = Command("dt", "" +
+    private val dt = Command(".dt", "" +
             "(dt) prints OS date and time [-t prints only time] [-d prints only date]") { input ->
 
         if (input.contains("-d")) {

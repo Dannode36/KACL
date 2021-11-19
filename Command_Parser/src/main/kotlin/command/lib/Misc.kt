@@ -5,26 +5,35 @@ import command.Command
 object Misc {
     const val name = "Misc"
     private const val length = 3
-    private val hello = Command("hello", "(hello) hi") { return@Command "hi" }
+    private val hello = Command(".hello", "(hello) hi") { return@Command "hi" }
 
-    private val repeat = Command("repeat", "(repeat <input>) repeats input") { input ->
-        if (input.count() == length) {
+    private val repeat = Command(".repeat", "(repeat <n times> <input>) repeats input") { input ->
+
+        val index = (input.count() - input.reversed().indexOf(name)) - 1
+
+        println(index)
+        println(input.reversed().indexOf(this.name))
+        if (input.count() - index == length) {
             println("Found Increment")
             try {
                 var i = 0
                 var print = ""
-                while (i < input[2].trim().toInt()) {
-                    print += input[1] + System.lineSeparator()
+                while (i < input[index + 1].trim().toInt()) {
+                    print += input[index + 2] + System.lineSeparator()
+                    println("Add")
                     i++
                 }
                 return@Command print
             }
             catch (e: NumberFormatException) {
-                return@Command "Expected \"Int\" found \"${input[2]::class.simpleName}\""
+                return@Command "ERROR: Expected \"Int\" found \"${input[index + 1]::class.simpleName}\""
             }
         }
-        else {
-            return@Command input[1]
+        else if (input.isNotEmpty()){
+            return@Command input[0]
+        }
+        else{
+            return@Command "ERROR: Please enter something to repeat"
         }
     }
 
