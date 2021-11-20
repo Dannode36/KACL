@@ -21,7 +21,7 @@ fun main() {
             parseInput();
         }
         foundCommands.clear()
-        input.clear()
+        input.clear()s
     }
 }
 
