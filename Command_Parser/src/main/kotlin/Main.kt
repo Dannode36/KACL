@@ -1,7 +1,6 @@
 import command.Command
 import command.CommandInit
 
-val foundCommands = mutableListOf<Triple<Command?, MutableList<String>, Int?>>()
 val categories: Map<String, Map<String, Command>> = CommandInit.comInit()
 fun main() {
     println("------------------------------------------------------------------------")
@@ -9,51 +8,47 @@ fun main() {
     println("------------------------------------------------------------------------")
 
     while (true){
-        var input = readLine()?.trim()?.split(Regex(" +"))?.toMutableList()!!
+        var input = readLine()?.trim()?.split(Regex(" +")) ?: continue
+
+        input = input.toMutableList()
 
         if (input[0] == "stop" || input[0] == "exit" || input[0] == "exeunt"){
             println("Process Terminated...")
             break
         }
 
+        var modInput = input.toMutableList()
+        var output = ""
         while (true){
             var hasFoundCommand = false
-            val tempInput = input.toMutableList()
-            for (i in input.asReversed()) {
-                val command = findCommand(i, categories)
-                val index = tempInput.indexOf(i)
-                val arguments: MutableList<String> = emptyList<String>().toMutableList()
+            val arguments = emptyList<String>().toMutableList()
+            for (i in input.reversed()){
+                val foundCommand = findCommand(i, categories)
 
-                var parsed: Triple<Command?, MutableList<String>, Int?>
-
-                if (i.contains(Regex(";\$"))) {
-                    arguments.clear()
-                    arguments.add(i.removeSuffix(";"))
-                    println("Semicolon Found")
-                }
-                else if (command == null) {
-                    println("Found Argument")
-                    arguments.add(i)
-                    continue
-                }
-                else {
-                    hasFoundCommand = true
-                    parsed = Triple(command, arguments, index)
-                    foundCommands.add(parsed)
-                    var replaceString = ""
-                    for (str in parsed.second.asReversed()) {
-                        replaceString += str + ""
+                if (foundCommand == null) {
+                    if (i.contains(Regex(";\$"))){
+                        arguments.clear()
+                        arguments.add(i.removeSuffix(";"))
+                       // println("Semicoloned argument found")
                     }
-                    input[tempInput.indexOf(i)] =
-                        i.replace(replaceString.trim(), parsed.first.action.invoke(parsed.second))
+                    else{
+                        //println("Found Argument")
+                        arguments.add(i)
+                    }
+                    output = i
+                    modInput.removeAt(modInput.indexOf(i))
                 }
-                println(arguments)
-                println(input)
-                println(foundCommands)
+                else{
+                    hasFoundCommand = true
+                    //arguments.add("herlp")
+                    //println("Index: " + modInput.indexOf(i))
+                    modInput[modInput.indexOf(i)] = foundCommand.action.invoke(arguments)
+
+                }
             }
-            println(hasFoundCommand)
+            input = modInput.toMutableList()
             if (!hasFoundCommand){
-                println("Output $input")
+                println(output)
                 break
             }
         }

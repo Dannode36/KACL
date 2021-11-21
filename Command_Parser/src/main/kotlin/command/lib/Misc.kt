@@ -8,14 +8,13 @@ object Misc {
     private val hello = Command(".hello", "(hello) hi") { return@Command "hi" }
 
     private val repeat = Command(".repeat", "(repeat <n times> <input>) repeats input") { input ->
-        println("Repeat input length: " + input.count())
+        //println("Repeat input length: " + input.count())
         if (input.count() == length) {
             try {
                 var i = 0
                 var print = ""
                 while (i < input[0].trim().toInt()) {
                     print += input[1] + System.lineSeparator()
-                    println("Add")
                     i++
                 }
                 return@Command print
@@ -24,7 +23,7 @@ object Misc {
                 return@Command "ERROR: Expected \"Int\" found \"${input[0]::class.simpleName}\""
             }
         }
-        else if (input.count() == length - 1){
+        else if (input.count() == 1){
             return@Command input[0]
         }
         else{

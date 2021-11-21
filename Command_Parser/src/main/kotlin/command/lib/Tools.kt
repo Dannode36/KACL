@@ -8,16 +8,16 @@ object Tools {
     const val name = "Tools"
 
     private val help = Command(".help", "list all available commands") {
-        var print = ""
-        print += "------------------------------------------------------------------------" + System.lineSeparator()
+        var output = ""
+        output += "------------------------------------------------------------------------" + System.lineSeparator()
         for (category in CommandInit.categories) {
-            print += category.key + ":" + System.lineSeparator()
+            output += category.key + ":" + System.lineSeparator()
             for (command in category.value){
-                print += "    " + command.value.name + ": " + command.value.desc + System.lineSeparator()
+                output += "    " + command.value.name + ": " + command.value.desc + System.lineSeparator()
             }
         }
-        print += "------------------------------------------------------------------------" + System.lineSeparator()
-        return@Command print
+        output += "------------------------------------------------------------------------" + System.lineSeparator()
+        return@Command output
     }
 
     private val dt = Command(".dt", "" +
