@@ -8,9 +8,8 @@ object Misc {
     private val hello = Command(".hello", "(hello) hi") { return@Command "hi" }
 
     private val repeat = Command(".repeat", "(repeat <n times> <input>) repeats input") { input ->
-
+        println("Repeat input length: " + input.count())
         if (input.count() == length) {
-            println("Found Increment")
             try {
                 var i = 0
                 var print = ""
