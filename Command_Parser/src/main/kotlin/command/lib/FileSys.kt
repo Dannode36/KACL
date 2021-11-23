@@ -10,26 +10,25 @@ object FileSys {
     private val wf = Command(
         ".wf", "" +
                 "(wf <file name> <content>) Writes to a new text file with the specified name and content"
-    ) { input ->
-        val index = (input.count() - input.indexOf(this.name)) - 1
+    ) { args ->
         var content = ""
         var i = 0
-        if (input.count() - index > 3) {
-            for (string in input) {
-                if (i > index + 1) {
+        if (args.count() > 2) {
+            for (string in args) {
+                if (i > 0) {
                     content += "$string "
                 }
                 i++
             }
-            val file = File("${input[index + 1]}.txt").writeText(content.trim())
+            val file = File("${args[0]}.txt").writeText(content.trim())
             return@Command "File Written to $file"
         }
-        else if (input.count() - index == 3) {
-            content = input[index + 2]
-            val file = File("${input[index + 1]}.txt").writeText(content.trim())
-            return@Command "File Written to $file"
+        else if (args.count() == 2) {
+            content = args[1]
+            val file = File("${args[0]}.txt").writeText(content.trim())
+            return@Command "File Written to ${file}"
         }
-        else if (input.count() - index < 3) {
+        else if (args.count() < 2) {
             return@Command "ERROR: Please specify a file name and the file content"
         }
         return@Command "Something bad happened"
@@ -38,18 +37,17 @@ object FileSys {
     private val rf = Command(
         ".rf", "" +
                 "(rf <file path>) Reads a text file with from specified path and prints the content"
-    ) { input ->
-        val index = (input.count() - input.indexOf(this.name)) - 1
+    ) { args ->
         try {
-            if (input.count() - index >= 2) {
-                return@Command File(input[index + 1]).readText(Charsets.UTF_8)
+            if (args.isNotEmpty()) {
+                return@Command File(args[0]).readText(Charsets.UTF_8)
             }
             else {
                 return@Command "ERROR: Please specify a file name"
             }
         }
         catch (e: FileNotFoundException) {
-            return@Command "ERROR: Could not find the file \"${input[index + 1]}\""
+            return@Command "ERROR: Could not find the file \"${args[0]}\""
         }
     }
 

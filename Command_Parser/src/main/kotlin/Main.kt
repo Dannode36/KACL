@@ -3,6 +3,9 @@ import command.Command
 import command.CommandInit
 
 val categories: Map<String, Map<String, Command>> = CommandInit.comInit()
+
+
+ @DelicateCoroutinesApi
 fun main() {
     println("------------------------------------------------------------------------")
     println("Welcome to Dannode36's command.Command Line. Type '.help' for a list of commands")
@@ -20,6 +23,7 @@ fun main() {
 
         val modInput = input.toMutableList()
         var output = ""
+
         GlobalScope.launch {
             while (true) {
                 var hasFoundCommand = false
@@ -41,8 +45,8 @@ fun main() {
                         output = i
                     } else {
                         hasFoundCommand = true
-                        println(modInput)
-                        println(arguments)
+                        //println(modInput)
+                        //println(arguments)
 
                         for (str in removableArguments) {
                             modInput.removeAt(modInput.indexOf(str))

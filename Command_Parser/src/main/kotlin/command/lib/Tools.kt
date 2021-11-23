@@ -21,12 +21,12 @@ object Tools {
     }
 
     private val dt = Command(".dt", "" +
-            "(dt) prints OS date and time [-t prints only time] [-d prints only date]") { input ->
+            "(dt) prints OS date and time [-t prints only time] [-d prints only date]") { args ->
 
-        if (input.contains("-d")) {
+        if (args.contains("-d")) {
             return@Command "Current date: ${DateTimeGetter.getDate()}"
         }
-        else if (input.contains("-t")) {
+        else if (args.contains("-t")) {
             return@Command "Current time: ${DateTimeGetter.getTime()}"
         }
         else {

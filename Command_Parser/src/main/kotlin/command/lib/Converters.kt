@@ -6,29 +6,25 @@ import command.tools.StringToBinary
 object Converters {
     const val name = "Converters"
 
-    private val tbin = Command(".tbin", "(tbin <input>) converts a string to a binary sequence"){ input ->
-        val index = (input.count() - input.asReversed().indexOf(this.name)) - 1
+    private val tbin = Command(".tbin", "(tbin <input>) converts a string to a binary sequence"){ args ->
         var i = 0
         var content = ""
         // println(Integer.toBinaryString(input.toInt()));
-        if (input.count() - index > 2) {
-            for (string in input) {
-                if (i > index) {
-                    content += "$string "
-                    println("add")
-                }
+        if (args.count() > 1) {
+            for (string in args) {
+                content += "$string "
                 i++
             }
             StringToBinary.strToBinary(content.trim())
             return@Command ""
         }
-        else if (input.count() - index == 2) {
-            StringToBinary.strToBinary(input[index + 1])
+        else if (args.count() == 1) {
+            StringToBinary.strToBinary(args[0])
             return@Command ""
         }
-        else if (input.count() - index < 3) {
+        else if (args.count() < 2) {
             //println("ERROR: Please enter the text you want to convert")
-            return@Command "ERROR at $index: Please enter the text you want to convert"
+            return@Command "ERROR: Please enter the text you want to convert"
         }
         return@Command "Something bad happened"
     }

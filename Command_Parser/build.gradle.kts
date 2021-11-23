@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "me.craft"
-version = "skcp_1.2.3"
+version = "kacl_1.2.4"
 
 repositories {
     mavenCentral()
@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-test:1.5.31")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 }
 
 tasks.test {
