@@ -1,3 +1,4 @@
+import kotlinx.coroutines.*
 import command.Command
 import command.CommandInit
 
@@ -7,49 +8,54 @@ fun main() {
     println("Welcome to Dannode36's command.Command Line. Type '.help' for a list of commands")
     println("------------------------------------------------------------------------")
 
-    while (true){
+    while (true) {
         var input = readLine()?.trim()?.split(Regex(" +")) ?: continue
 
         input = input.toMutableList()
 
-        if (input[0] == "stop" || input[0] == "exit" || input[0] == "exeunt"){
+        if (input[0] == "stop" || input[0] == "exit" || input[0] == "exeunt") {
             println("Process Terminated...")
             break
         }
 
-        var modInput = input.toMutableList()
+        val modInput = input.toMutableList()
         var output = ""
-        while (true){
-            var hasFoundCommand = false
-            val arguments = emptyList<String>().toMutableList()
-            for (i in input.reversed()){
-                val foundCommand = findCommand(i, categories)
+        GlobalScope.launch {
+            while (true) {
+                var hasFoundCommand = false
+                val arguments = emptyList<String>().toMutableList()
+                val removableArguments = mutableListOf<String>()
+                for (i in input.reversed()) {
+                    val foundCommand = findCommand(i, categories)
 
-                if (foundCommand == null) {
-                    if (i.contains(Regex(";\$"))){
-                        arguments.clear()
-                        arguments.add(i.removeSuffix(";"))
-                       // println("Semicoloned argument found")
-                    }
-                    else{
-                        //println("Found Argument")
-                        arguments.add(i)
-                    }
-                    output = i
-                    modInput.removeAt(modInput.indexOf(i))
-                }
-                else{
-                    hasFoundCommand = true
-                    //arguments.add("herlp")
-                    //println("Index: " + modInput.indexOf(i))
-                    modInput[modInput.indexOf(i)] = foundCommand.action.invoke(arguments)
+                    if (foundCommand == null) {
+                        if (i.contains(Regex(";\$"))) {
+                            arguments.clear()
+                            removableArguments.clear()
 
+                            arguments.add(i.removeSuffix(";"))
+                        } else {
+                            arguments.add(i)
+                        }
+                        removableArguments.add(i)
+                        output = i
+                    } else {
+                        hasFoundCommand = true
+                        println(modInput)
+                        println(arguments)
+
+                        for (str in removableArguments) {
+                            modInput.removeAt(modInput.indexOf(str))
+                        }
+                        modInput.asReversed()[modInput.asReversed().indexOf(i)] =
+                            foundCommand.action.invoke(arguments.asReversed())
+                    }
                 }
-            }
-            input = modInput.toMutableList()
-            if (!hasFoundCommand){
-                println(output)
-                break
+                input = modInput.toMutableList()
+                if (!hasFoundCommand) {
+                    println(output)
+                    break
+                }
             }
         }
     }
