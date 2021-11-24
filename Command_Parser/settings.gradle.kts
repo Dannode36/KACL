@@ -1,3 +1,3 @@
 
-rootProject.name = "KACL"
+rootProject.name = "Command_Parser"
 
