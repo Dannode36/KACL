@@ -6,9 +6,9 @@ val categories: Map<String, Map<String, Command>> = CommandInit.comInit()
 
 
  @DelicateCoroutinesApi
-fun main() {
+fun main(args: Array<String>) {
     println("------------------------------------------------------------------------")
-    println("Welcome to Dannode36's command.Command Line. Type '.help' for a list of commands")
+    println("Welcome to Dannode36's Command Line. Type '.help' for a list of commands")
     println("------------------------------------------------------------------------")
 
     while (true) {

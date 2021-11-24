@@ -7,27 +7,23 @@ plugins {
 }
 
 group = "me.craft"
-version = "kacl_1.2.4"
+version = "1.2.4"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-test:1.5.31")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    testImplementation(kotlin("test"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
 }
 
 tasks.test {
     useJUnit()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-application {
-    mainClass.set("MainKt")
+tasks.withType<KotlinCompile>() {
+    kotlinOptions.jvmTarget = "16"
 }
 
 tasks.jar {
@@ -38,4 +34,9 @@ tasks.jar {
         from(zipTree(file.absoluteFile))
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    println("AGJ")
+}
+
+application {
+    mainClass.set("MainKt")
 }
