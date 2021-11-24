@@ -1,13 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.30"
-
+    kotlin("jvm") version "1.5.10"
     application
 }
 
 group = "me.craft"
-version = "1.2.4"
+version = "skcp_1.1"
 
 repositories {
     mavenCentral()
@@ -15,7 +14,6 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
 }
 
 tasks.test {
@@ -23,7 +21,11 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "16"
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+application {
+    mainClass.set("MainKt")
 }
 
 tasks.jar {
@@ -34,9 +36,4 @@ tasks.jar {
         from(zipTree(file.absoluteFile))
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    println("AGJ")
-}
-
-application {
-    mainClass.set("MainKt")
 }
