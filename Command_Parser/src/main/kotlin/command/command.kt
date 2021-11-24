@@ -1,4 +1,3 @@
-import javax.swing.Action
+package command
 
-data class Command(val name: String, val desc: String, val action: ( List<String>) -> Unit){
-}
+data class Command(val name: String, val desc: String, val action: (MutableList<String>) -> String)

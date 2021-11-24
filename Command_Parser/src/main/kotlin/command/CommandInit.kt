@@ -1,6 +1,5 @@
 package command
 
-import Command
 import command.lib.Converters
 import command.lib.FileSys
 import command.lib.Misc
@@ -13,8 +12,8 @@ object CommandInit{
         categories = mapOf(
             Converters.name to Converters.commands,
             FileSys.name to FileSys.commands,
+            Tools.name to Tools.commands,
             Misc.name to Misc.commands,
-            Tools.name to Tools.commands
         )
         return categories
     }

@@ -1,32 +1,38 @@
 package command.lib
 
-import Command
+import command.Command
 
 object Misc {
     const val name = "Misc"
+    private const val length = 2
+    private val hello = Command(".hello", "(hello) hi") { return@Command "hi" }
 
-    val hello = Command("hello", "(hello) hi") { input -> println("hi") }
-
-    val repeat = Command("repeat", "(repeat <input>) repeats input") { input ->
-        val length = 3
+    private val repeat = Command(".repeat", "(repeat <n times> <input>) repeats input") { input ->
+        println("Repeat input length: " + input.count())
         if (input.count() == length) {
-            println("Found Increment")
             try {
                 var i = 0
-                while (i < input[2].trim().toInt()) {
-                    println(input[1])
+                var print = ""
+                while (i < input[1].trim().toInt()) {
+                    print += input[0] + " "
                     i++
                 }
-            } catch (e: NumberFormatException) {
-                println("Expected \"Int\" found \"${input[2]::class.simpleName}\"")
+                return@Command print.trim()
             }
-        } else {
-            println(input[1])
+            catch (e: NumberFormatException) {
+                return@Command "ERROR: Expected \"Int\" found \"${input[0]::class.simpleName}\""
+            }
+        }
+        else if (input.count() == 1){
+            return@Command input[0]
+        }
+        else{
+            return@Command "ERROR: Please enter something to repeat"
         }
     }
 
-    val weeb = Command("uwu", "hehe") {
-        println(
+    private val weeb = Command("uwu", "hehe") {
+        return@Command "" +
             "  ░░      ░░        ░░░░    ▓▓██████████████████████████                              \n" +
                     "░░░░██▓▓▓▓              ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░████                          \n" +
                     "░░▓▓░░░░▒▒████▓▓    ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██▓▓                      \n" +
@@ -100,7 +106,6 @@ object Misc {
                     "                            ▓▓▒▒▒▒▒▒▒▒▓▓░░██▒▒▒▒▒▒▒▒██                                \n" +
                     "                            ██▒▒▒▒▒▒▒▒▓▓  ▓▓▒▒▒▒▒▒▒▒██                                \n" +
                     "                            ░░██▓▓▓▓██▓▓░░▓▓▓▓▓▓▓▓██░░                                \n"
-        )
     }
     val commands = mapOf(
         hello.name to hello,

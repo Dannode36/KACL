@@ -1,46 +1,53 @@
 package command.lib
 
-import Command
+import command.Command
 import java.io.File
 import java.io.FileNotFoundException
 
 object FileSys {
     const val name = "File System"
 
-    val wf = Command(
-        "wf", "" +
+    private val wf = Command(
+        ".wf", "" +
                 "(wf <file name> <content>) Writes to a new text file with the specified name and content"
-    ) { input ->
+    ) { args ->
         var content = ""
         var i = 0
-        if (input.count() > 3) {
-            for (string in input) {
-                if (i > 1) {
+        if (args.count() > 2) {
+            for (string in args) {
+                if (i > 0) {
                     content += "$string "
                 }
                 i++
             }
-            File("${input[1]}.txt").writeText(content.trim())
-        } else if (input.count() == 3) {
-            content = input[2]
-            File("${input[1]}.txt").writeText(content.trim())
-        } else if (input.count() < 3) {
-            println("ERROR: Please specify a file name and the file content")
+            val file = File("${args[0]}.txt").writeText(content.trim())
+            return@Command "File Written to $file"
         }
+        else if (args.count() == 2) {
+            content = args[1]
+            val file = File("${args[0]}.txt").writeText(content.trim())
+            return@Command "File Written to ${file}"
+        }
+        else if (args.count() < 2) {
+            return@Command "ERROR: Please specify a file name and the file content"
+        }
+        return@Command "Something bad happened"
     }
 
-    val rf = Command(
-        "rf", "" +
+    private val rf = Command(
+        ".rf", "" +
                 "(rf <file path>) Reads a text file with from specified path and prints the content"
-    ) { input ->
+    ) { args ->
         try {
-            if (input.count() >= 2) {
-                println(File(input[1]).readText(Charsets.UTF_8))
-            } else {
-                println("ERROR: Please specify a file name")
+            if (args.isNotEmpty()) {
+                return@Command File(args[0]).readText(Charsets.UTF_8)
             }
-        } catch (e: FileNotFoundException) {
-            println("ERROR: Could not find the file \"${input[1]}\"")
+            else {
+                return@Command "ERROR: Please specify a file name"
+            }
+        }
+        catch (e: FileNotFoundException) {
+            return@Command "ERROR: Could not find the file \"${args[0]}\""
         }
     }
 
