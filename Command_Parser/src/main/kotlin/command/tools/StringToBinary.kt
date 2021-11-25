@@ -2,8 +2,9 @@ package command.tools
 
 object StringToBinary {
     // utility function
-    fun strToBinary(s: String) {
+    fun strToBinary(s: String): String {
         val n = s.length
+        var output = ""
         for (i in 0 until n) {
             // convert each char to
             // ASCII value
@@ -18,8 +19,9 @@ object StringToBinary {
                 value /= 2
             }
             bin = reverse(bin)
-            print("$bin ")
+            output += "$bin "
         }
+        return output
     }
 
     private fun reverse(input: String): String {

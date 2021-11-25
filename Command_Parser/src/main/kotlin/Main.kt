@@ -38,19 +38,15 @@ fun main(args: Array<String>) {
                         removableArguments.clear()
                         arguments.add(i.removeSuffix(";"))
                     }
-                    println("sdgfndszg")
                     arguments.add(i.removeSuffix(";"))
                     removableArguments.add(i)
                     output = i
-                } else {
+                }
+                else {
                     hasFoundCommand = true
-                    println(modInput)
-                    println(arguments.asReversed())
-                    println(removableArguments.asReversed())
 
                     for (str in removableArguments) {
                         modInput.asReversed().removeAt(modInput.asReversed().indexOf(str))
-                        println("remove cleared")
                     }
                     removableArguments.clear()
 

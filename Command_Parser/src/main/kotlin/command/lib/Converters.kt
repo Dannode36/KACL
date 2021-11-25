@@ -7,20 +7,16 @@ object Converters {
     const val name = "Converters"
 
     private val tbin = Command(".tbin", "(tbin <input>) converts a string to a binary sequence"){ args ->
-        var i = 0
         var content = ""
         // println(Integer.toBinaryString(input.toInt()));
         if (args.count() > 1) {
             for (string in args) {
                 content += "$string "
-                i++
             }
-            StringToBinary.strToBinary(content.trim())
-            return@Command ""
+            return@Command StringToBinary.strToBinary(content.trim())
         }
         else if (args.count() == 1) {
-            StringToBinary.strToBinary(args[0])
-            return@Command ""
+            return@Command StringToBinary.strToBinary(args[0])
         }
         else if (args.count() < 2) {
             //println("ERROR: Please enter the text you want to convert")

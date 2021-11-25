@@ -11,9 +11,9 @@
 .mtj.tmp/
 
 # Distributions (JDK is too big to commit)
-distributions/**
+distributions/
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -21,7 +21,6 @@ distributions/**
 *.zip
 *.tar.gz
 *.rar
-*.kt
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
