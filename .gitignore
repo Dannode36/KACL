@@ -10,6 +10,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Distributions (JDK is too big to commit)
+distributions/**
+
 # Package Files #
 *.jar
 *.war
