@@ -8,13 +8,23 @@ object Misc {
     private val hello = Command(".hello", "(hello) hi") { return@Command "hi" }
 
     private val repeat = Command(".repeat", "(repeat <n times> <input>) repeats input") { input ->
-        println("Repeat input length: " + input.count())
-        if (input.count() == length) {
+        //println("Repeat input length: " + input.count())
+        val isDigit = run{
+            try {
+                input[0].trim().toInt()
+                return@run true
+            }
+            catch (e: NumberFormatException){
+                return@run false
+            }
+        }
+        //(isDigit)
+        if (input.count() == length && isDigit) {
             try {
                 var i = 0
                 var print = ""
-                while (i < input[1].trim().toInt()) {
-                    print += input[0] + " "
+                while (i < input[0].trim().toInt()) {
+                    print += input[1] + " "
                     i++
                 }
                 return@Command print.trim()
@@ -22,6 +32,36 @@ object Misc {
             catch (e: NumberFormatException) {
                 return@Command "ERROR: Expected \"Int\" found \"${input[0]::class.simpleName}\""
             }
+        }
+        else if (input.count() > length && isDigit){
+            try {
+                var i = 0
+                var k = 0
+                var print = ""
+                while (i < input[0].trim().toInt()) {
+                    while (k < input.count()){
+                        if(k > 0){
+                            print += input[k] + " "
+                        }
+                        k++
+                    }
+                    k = 0
+                    i++
+                }
+                return@Command print.trim()
+            }
+            catch (e: NumberFormatException) {
+                return@Command "ERROR: Expected \"Int\" found \"${input[0]::class.simpleName}\""
+            }
+        }
+        else if (input.count() > 1 && !isDigit){
+            var k = 0
+            var print = ""
+                while (k < input.count()){
+                    print += input[k] + " "
+                    k++
+                }
+            return@Command print.trim()
         }
         else if (input.count() == 1){
             return@Command input[0]

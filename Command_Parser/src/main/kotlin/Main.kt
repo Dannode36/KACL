@@ -24,47 +24,51 @@ fun main(args: Array<String>) {
         val modInput = input.toMutableList()
         var output = ""
 
-        GlobalScope.launch {
-            while (true) {
-                var hasFoundCommand = false
-                val arguments = emptyList<String>().toMutableList()
-                val removableArguments = mutableListOf<String>()
-                for (i in input.reversed()) {
-                    val foundCommand = findCommand(i, categories)
+        while (true) {
+            var hasFoundCommand = false
+            val arguments = emptyList<String>().toMutableList()
+            val removableArguments = mutableListOf<String>()
 
-                    if (foundCommand == null) {
-                        if (i.contains(Regex(";\$"))) {
-                            arguments.clear()
-                            removableArguments.clear()
+            for (i in modInput.reversed()) {
+                val foundCommand = findCommand(i, categories)
 
-                            arguments.add(i.removeSuffix(";"))
-                        } else {
-                            arguments.add(i)
-                        }
-                        removableArguments.add(i)
-                        output = i
-                    } else {
-                        hasFoundCommand = true
-                        //println(modInput)
-                        //println(arguments)
-
-                        for (str in removableArguments) {
-                            modInput.removeAt(modInput.indexOf(str))
-                        }
-                        modInput.asReversed()[modInput.asReversed().indexOf(i)] =
-                            foundCommand.action.invoke(arguments.asReversed())
+                if (foundCommand == null) {
+                    if (i.contains(Regex(";\$"))) {
+                        arguments.clear()
+                        removableArguments.clear()
+                        arguments.add(i.removeSuffix(";"))
                     }
-                }
-                input = modInput.toMutableList()
-                if (!hasFoundCommand) {
-                    println(output)
+                    println("sdgfndszg")
+                    arguments.add(i.removeSuffix(";"))
+                    removableArguments.add(i)
+                    output = i
+                } else {
+                    hasFoundCommand = true
+                    println(modInput)
+                    println(arguments.asReversed())
+                    println(removableArguments.asReversed())
+
+                    for (str in removableArguments) {
+                        modInput.asReversed().removeAt(modInput.asReversed().indexOf(str))
+                        println("remove cleared")
+                    }
+                    removableArguments.clear()
+
+                    modInput.asReversed()[modInput.asReversed().indexOf(i)] =
+                        foundCommand.action.invoke(arguments.asReversed())
                     break
                 }
+            }
+            //input = modInput.toMutableList()
+            if (!hasFoundCommand) {
+                println("Out: $output")
+                break
             }
         }
     }
 }
 
+//   .repeat .repeat hello 2; 2
 fun findCommand(input: String, categories: Map<String, Map<String, Command>>): Command? {
     for (cat in categories){
         if(cat.value.containsKey(input)){
