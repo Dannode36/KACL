@@ -10,7 +10,11 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# build and .gradle folder cause merge conflicts and aren't needed
+build/
+.gradle/
+
+# Package Files
 *.jar
 *.war
 *.nar
