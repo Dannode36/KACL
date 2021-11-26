@@ -1,1 +1,0 @@
-java -jar KACL-kacl_1.2.4.jar
