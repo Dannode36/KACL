@@ -10,20 +10,23 @@ fun main(args: Array<String>) {
     println("------------------------------------------------------------------------")
     println("Welcome to Dannode36's Command Line. Type '.help' for a list of commands")
     println("------------------------------------------------------------------------")
-
     while (true) {
         var input = readLine()?.trim()?.split(Regex(" +")) ?: continue
 
-        input = input.toMutableList()
-
+        if (input[0].isEmpty()){
+            continue
+        }
         if (input[0] == "stop" || input[0] == "exit" || input[0] == "exeunt") {
             println("Process Terminated...")
             break
         }
 
+        input = input.toMutableList()
+
         val modInput = input.toMutableList()
         var output = ""
 
+        var containsCommand = false
         while (true) {
             var hasFoundCommand = false
             val arguments = emptyList<String>().toMutableList()
@@ -44,12 +47,12 @@ fun main(args: Array<String>) {
                 }
                 else {
                     hasFoundCommand = true
-
+                    containsCommand = true
                     for (str in removableArguments) {
                         modInput.asReversed().removeAt(modInput.asReversed().indexOf(str))
                     }
                     removableArguments.clear()
-
+                    //println(arguments)
                     modInput.asReversed()[modInput.asReversed().indexOf(i)] =
                         foundCommand.action.invoke(arguments.asReversed())
                     break
@@ -57,11 +60,19 @@ fun main(args: Array<String>) {
             }
             //input = modInput.toMutableList()
             if (!hasFoundCommand) {
-                println("Out: $output")
-                break
+                if (containsCommand){
+                    println(output)
+                    break
+                }
+                else{
+                    println("ERROR: No command found. Type '.help' for a list of commands")
+                    break
+                }
             }
         }
     }
+    println("Press enter to continue...")
+    readLine()
 }
 
 //   .repeat .repeat hello 2; 2

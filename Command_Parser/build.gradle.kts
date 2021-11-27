@@ -7,14 +7,14 @@ plugins {
 }
 
 group = "me.craft"
-version = "1.2.5"
+version = "2.0-alpha.0.0.3"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
 }
 

@@ -9,7 +9,7 @@ object FileSys {
 
     private val wf = Command(
         ".wf", "" +
-                "(wf <file name> <content>) Writes to a new text file with the specified name and content"
+                "(wf <<file name>.<extension>> <content>) Writes to a new text file with the specified name and content"
     ) { args ->
         var content = ""
         var i = 0
@@ -20,13 +20,13 @@ object FileSys {
                 }
                 i++
             }
-            val file = File("${args[0]}.txt").writeText(content.trim())
+            val file = File(args[0]).writeText(content.trim())
             return@Command "File Written to $file"
         }
         else if (args.count() == 2) {
             content = args[1]
-            val file = File("${args[0]}.txt").writeText(content.trim())
-            return@Command "File Written to ${file}"
+            val file = File(args[0]).writeText(content.trim())
+            return@Command "File Written to $file"
         }
         else if (args.count() < 2) {
             return@Command "ERROR: Please specify a file name and the file content"
@@ -47,7 +47,7 @@ object FileSys {
             }
         }
         catch (e: FileNotFoundException) {
-            return@Command "ERROR: Could not find the file \"${args[0]}\""
+            return@Command "ERROR: Could not find the file \"${args[0]}\". Please check spelling and file extension"
         }
     }
 
