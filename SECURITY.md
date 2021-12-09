@@ -1,10 +1,13 @@
 # Security Policy
 
-## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-|  > 2.x  | :white_check_mark: |
+## Version Support
+
+**UNLESS SPECIFIED, ALL VERSIONS > ARE SUPPORTED!**
+| Version |      Supported     |
+| :-----: | :----------------: |
+|  < 2.0  |         ❌        |
+|   2.0   |         ✔️        |
 
 ## Reporting a Vulnerability
 
