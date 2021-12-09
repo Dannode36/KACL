@@ -23,7 +23,13 @@ fun main(args: Array<String>) {
 
         input = input.toMutableList()
 
-        val modInput = input.toMutableList()
+        var modInput = input.toMutableList()
+        /*var count = 0
+        while (count < modInput.count()){
+            modInput[count] += " "
+            count++
+        }*/
+
         var output = ""
 
         var containsCommand = false
@@ -34,7 +40,7 @@ fun main(args: Array<String>) {
 
             for (i in modInput.reversed()) {
                 val foundCommand = findCommand(i, categories)
-
+                println(i)
                 if (foundCommand == null) {
                     if (i.contains(Regex(";\$"))) {
                         arguments.clear()
