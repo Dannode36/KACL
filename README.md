@@ -1,6 +1,8 @@
 # Kotlin Asynchronous Command Line
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![official JetBrains project](http://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
+###### *witch noises*
 
 [![CodeFactor](https://www.codefactor.io/repository/github/dannode36/kacl/badge)](https://www.codefactor.io/repository/github/dannode36/kacl)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Dannode36/KACL/graphs/commit-activity)
@@ -16,10 +18,6 @@
 [![Github all releases](https://img.shields.io/github/downloads/Dannode36/KACL/total.svg)](https://GitHub.com/Dannode36/KACL/releases/)
 [![Github releases (by release)](https://img.shields.io/github/downloads/Dannode36/KACL/latest/total.svg)](https://GitHub.com/Dannode36/KACL/releases/latest)
 
+### Info
 
-*witch noises*
-
-go to wiki for a command list (WIP)
-https://img.shields.io/github/v/release/Dannode36/KACL.svg
-
-The more I learn, the more I realize how much I don't know ― Albert Einstein
+Go to the [KACL Wiki](https://github.com/Dannode36/KACL/wiki) for more info (WIP)
