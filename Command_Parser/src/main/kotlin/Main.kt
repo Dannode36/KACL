@@ -1,12 +1,15 @@
-import kotlinx.coroutines.*
 import command.Command
 import command.CommandInit
+import command.tools.ConfigParser
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 val categories: Map<String, Map<String, Command>> = CommandInit.comInit()
 
 
  @DelicateCoroutinesApi
 fun main(args: Array<String>) {
+
+    ConfigParser.setPrefs()
     println("------------------------------------------------------------------------")
     println("Welcome to Dannode36's Command Line. Type '.help' for a list of commands")
     println("------------------------------------------------------------------------")
@@ -23,7 +26,7 @@ fun main(args: Array<String>) {
 
         input = input.toMutableList()
 
-        var modInput = input.toMutableList()
+        val modInput = input.toMutableList()
         /*var count = 0
         while (count < modInput.count()){
             modInput[count] += " "
