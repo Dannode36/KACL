@@ -17,7 +17,10 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
     implementation("org.ini4j:ini4j:0.5.4")
-
+    implementation("io.ktor:ktor-client-core:1.6.7")
+    implementation("io.ktor:ktor-client-cio:1.6.7")
+    implementation("io.ktor:ktor-server-netty:1.6.7")
+    implementation("org.slf4j:slf4j-simple:1.7.32")
 }
 
 tasks.test {
@@ -36,7 +39,6 @@ tasks.jar {
         from(zipTree(file.absoluteFile))
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    println("AGJ")
 }
 
 application {

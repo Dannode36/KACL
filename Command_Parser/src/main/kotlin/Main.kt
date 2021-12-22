@@ -1,15 +1,16 @@
 import command.Command
 import command.CommandInit
 import command.tools.ConfigParser
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.*
 
 val categories: Map<String, Map<String, Command>> = CommandInit.comInit()
 
 
  @DelicateCoroutinesApi
-fun main(args: Array<String>) {
+suspend fun main(args: Array<String>){
 
     ConfigParser.setPrefs()
+
     println("------------------------------------------------------------------------")
     println("Welcome to Dannode36's Command Line. Type '.help' for a list of commands")
     println("------------------------------------------------------------------------")
@@ -37,13 +38,12 @@ fun main(args: Array<String>) {
 
         var containsCommand = false
         while (true) {
-            var hasFoundCommand = false
+            var foundCommandThisIter = false
             val arguments = emptyList<String>().toMutableList()
             val removableArguments = mutableListOf<String>()
 
             for (i in modInput.reversed()) {
                 val foundCommand = findCommand(i, categories)
-                println(i)
                 if (foundCommand == null) {
                     if (i.contains(Regex(";\$"))) {
                         arguments.clear()
@@ -55,20 +55,19 @@ fun main(args: Array<String>) {
                     output = i
                 }
                 else {
-                    hasFoundCommand = true
+                    foundCommandThisIter = true
                     containsCommand = true
                     for (str in removableArguments) {
                         modInput.asReversed().removeAt(modInput.asReversed().indexOf(str))
                     }
                     removableArguments.clear()
-                    //println(arguments)
                     modInput.asReversed()[modInput.asReversed().indexOf(i)] =
                         foundCommand.action.invoke(arguments.asReversed())
                     break
                 }
             }
             //input = modInput.toMutableList()
-            if (!hasFoundCommand) {
+            if (!foundCommandThisIter) {
                 if (containsCommand){
                     println(output)
                     break

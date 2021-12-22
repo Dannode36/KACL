@@ -8,7 +8,6 @@ object Misc {
     private val hello = Command(".hello", "(hello) hi") { return@Command "hi" }
 
     private val repeat = Command(".repeat", "(repeat <n times> <input>) repeats input") { input ->
-        //println("Repeat input length: " + input.count())
         val isDigit = run{
             try {
                 input[0].trim().toInt()
@@ -18,7 +17,6 @@ object Misc {
                 return@run false
             }
         }
-        //(isDigit)
         if (input.count() == length && isDigit) {
             try {
                 var i = 0

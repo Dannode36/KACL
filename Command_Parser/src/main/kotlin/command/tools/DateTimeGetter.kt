@@ -2,7 +2,7 @@ package command.tools
 
 import java.time.LocalDateTime
 
-object DateTimeGetter {
+class DateTimeGetter {
     fun getDate(): String {
         val timeNow = LocalDateTime.now()
         var time = timeNow.toString()
