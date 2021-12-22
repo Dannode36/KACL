@@ -1,27 +1,22 @@
 package command.lib
-
+import main
 import command.Command
 import command.CommandInit
 import command.tools.DateTimeGetter
+import httpCount
 import io.ktor.client.engine.cio.*
 import kotlinx.coroutines.*
-import io.ktor.*
 import io.ktor.client.*
-import io.ktor.client.features.observer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import java.net.InetSocketAddress
 import io.ktor.application.*
-import io.ktor.client.response.*
-import io.ktor.client.statement.*
 import io.ktor.client.utils.EmptyContent.status
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.netty.handler.codec.http.HttpResponse
+import java.io.File
 import java.net.BindException
-import kotlin.coroutines.startCoroutine
 
 
 object Tools {
@@ -60,17 +55,45 @@ object Tools {
     }
 
 
-    private val netserver = Command(".netserver", "(.netserver <\"start\", \"stop\", \"stopall\",\"status\"> <port>) Manages a local Http server at 127.0.0.1:8080 or on the specified port"){ args ->
+    private val http = Command(".http", "(.http <\"start\", \"stop\", \"stopall\",\"status\",\"count\"> <port>) Manages a local HTTP servers"){ args ->
         if (args.isEmpty()){
-            return@Command "ERROR: .netserver found no arguments"
+            return@Command "ERROR: \".http\" found no arguments"
+        }
+        if (args[0].contains("help")){
+            return@Command """
+                |start: By default, creates a HTTP server bound to 127.0.0.1:8080 unless a port is specified and or a serving file (can not change ip for now)
+                |stop: Stops the specified server (Use status to find the position of the server (zero indexed))
+                |stopall: Stops all active servers 
+                |status: Prints a list of all active servers and their details
+                |count: Prints the number of active servers
+                |route: Routes a server to serve a different file
+            """.trimMargin()
         }
         // Starts on 8080
-        if (args.count() == 1 && args[0].contains("start")){
+        else if (args.count() == 1 && args[0].contains("start")){
             try {
                 val server = embeddedServer(Netty, port = 8080) {
                     routing {
                         get("/") {
-                            call.respondText("Hello, world!")
+                            call.respondText(File("index.txt").readText())
+                        }
+                    }
+                }.start(wait = false)
+                servers.add(server)
+
+                return@Command "Server Successfully Started"
+            }
+            catch (e: BindException){
+                return@Command "ERROR: The specified address is in use, or the address could not be assigned. ($e)"
+            }
+        }
+        // Starts server with specific port
+        else if (args.count() == 2 && args[0].contains("start")){
+            try {
+                val server = embeddedServer(Netty, port = args[1].toInt()) {
+                    routing {
+                        get("/") {
+                            call.respondText(File("index.txt").readText())
                         }
                     }
                 }.start(wait = false)
@@ -81,13 +104,13 @@ object Tools {
                 return@Command "ERROR: The specified address is in use, or the address could not be assigned. ($e)"
             }
         }
-        // Starts with specific port
-        else if (args[0].contains("start")){
+        // Starts server with specific port and serving file
+        else if (args.count() > 2 && args[0].contains("start")){
             try {
                 val server = embeddedServer(Netty, port = args[1].toInt()) {
                     routing {
                         get("/") {
-                            call.respondText("Hello, world!")
+                            call.respondText(File(args[2]).readText())
                         }
                     }
                 }.start(wait = false)
@@ -100,7 +123,7 @@ object Tools {
         }
         // Stops specific server
         else if (args[0].contains("stop") && args.count() == 2){
-            servers[args[1].toInt()].stop(1000,10000)
+            servers[args[1].toInt()].stop(300,5000)
             servers.removeAt(args[1].toInt())
             return@Command "Server Successfully Stopped"
         }
@@ -113,17 +136,43 @@ object Tools {
                 server.stop(300,5000)
                 println("$i out of $count stopped...")
             }
+            servers.clear()
             return@Command "All servers successfully stopped"
         }
         // Prints a list of all servers and their details and active status
         else if (args[0].contains("status")){
-            var status = "|     Server Port     | Active | " + System.lineSeparator()
-
-            for (server in servers){
-                status += "| ${server.environment.connectors} |  ${server.application.isActive}  |" + System.lineSeparator()
+            var status = ""
+            if (servers.isEmpty()){
+                status += "No running servers could be found"
+            }
+            else{
+                status = "|     Server Port     | Active | " + System.lineSeparator()
+                for (server in servers){
+                    status += "| ${server.environment.connectors} |  ${server.application.isActive}  |" + System.lineSeparator()
+                }
             }
             return@Command status
         }
+        else if (args[0].contains("count")){
+            var count = 0
+
+            for (server in servers){
+                count++
+            }
+            return@Command "There are $count HTTP servers running!"
+        }
+        //Change the file a server serves
+//        else if (args[0].contains("route")){
+//            println(args.count())
+//            if(args.count() == 3){
+//                servers[0].application.routing {
+//                    get("/") {
+//                        call.respondText(File(args[2]).readText())
+//                    }
+//                }
+//            }
+//            return@Command "Route Successful"
+//        }
         return@Command "An interesting error occurred..."
     }
 
@@ -151,6 +200,6 @@ object Tools {
         help.name to help,
         dt.name to dt,
         netget.name to netget,
-        netserver.name to netserver
+        http.name to http
     )
 }

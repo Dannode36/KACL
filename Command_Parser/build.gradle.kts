@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "me.craft"
-version = "2.0-alpha.0.0.3"
+version = "2.0.a.0.0.5"
 
 repositories {
     mavenCentral()

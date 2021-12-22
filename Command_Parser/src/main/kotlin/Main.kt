@@ -5,9 +5,9 @@ import kotlinx.coroutines.*
 
 val categories: Map<String, Map<String, Command>> = CommandInit.comInit()
 
-
- @DelicateCoroutinesApi
-suspend fun main(args: Array<String>){
+var httpCount = 0
+@DelicateCoroutinesApi
+fun main(args: Array<String>){
 
     ConfigParser.setPrefs()
 
@@ -15,6 +15,7 @@ suspend fun main(args: Array<String>){
     println("Welcome to Dannode36's Command Line. Type '.help' for a list of commands")
     println("------------------------------------------------------------------------")
     while (true) {
+        httpCount++
         var input = readLine()?.trim()?.split(Regex(" +")) ?: continue
 
         if (input[0].isEmpty()){
