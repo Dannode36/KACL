@@ -48,6 +48,7 @@ object Tools {
                 response = client.request("http://${args[0]}") {
                     method = HttpMethod.Get
                 }
+
             }
             while (!coroutine.isCompleted){
                 Thread.sleep(20)
@@ -75,23 +76,21 @@ object Tools {
         // Starts on 8080
         else if (args.count() == 1 && args[0].contains("start")){
             try {
-                val server = embeddedServer(Netty, port = 8080) {
+                val server = embeddedServer(Netty, port = 25565) {
                     install(CallLogging){
                         format { call ->
                             val status = call.response.status()
                             val httpMethod = call.request.httpMethod.value
-                            //val userAgent = call.request.headers["User-Agent"]
                             val origin = call.request.origin.remoteHost
-                            //"Status: $status, HTTP method: $httpMethod, User agent: $userAgent, Host Origin: $hostOrigin"
                             "Status: $status, HTTP method: $httpMethod, Origin: $origin"
                         }
                     }
 
                     routing {
                         get("/") {
-                            val content = "index.txt"
+                            val content = "index.zip"
                             val file = File(content)
-                            //call.respondText(File(content).readText())
+                            //call.respondText(file.readText())
                             //call.application.environment.log.info("${call.request.origin.remoteHost} tried to get $content")
                             call.response.header("Content-Disposition", "attachment; filename=\"${file.name}\"")
                             call.respondFile(file)
