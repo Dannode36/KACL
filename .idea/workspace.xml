@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66a4cf41-b437-40a6-bbaa-8cfa9cca1362" name="Changes" comment="" />
+    <list default="true" id="66a4cf41-b437-40a6-bbaa-8cfa9cca1362" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command_Parser/index.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command_Parser/schoolGrades.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Command_Parser/schoolGrades.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command_Parser/src/main/kotlin/command/lib/Tools.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Command_Parser/src/main/kotlin/command/lib/Tools.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +50,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Command_Parser" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

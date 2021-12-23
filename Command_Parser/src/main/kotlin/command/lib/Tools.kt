@@ -11,6 +11,9 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.application.*
 import io.ktor.client.utils.EmptyContent.status
+import io.ktor.features.*
+import io.ktor.http.content.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
@@ -73,9 +76,28 @@ object Tools {
         else if (args.count() == 1 && args[0].contains("start")){
             try {
                 val server = embeddedServer(Netty, port = 8080) {
+                    install(CallLogging){
+                        format { call ->
+                            val status = call.response.status()
+                            val httpMethod = call.request.httpMethod.value
+                            //val userAgent = call.request.headers["User-Agent"]
+                            val origin = call.request.origin.remoteHost
+                            //"Status: $status, HTTP method: $httpMethod, User agent: $userAgent, Host Origin: $hostOrigin"
+                            "Status: $status, HTTP method: $httpMethod, Origin: $origin"
+                        }
+                    }
+
                     routing {
                         get("/") {
-                            call.respondText(File("index.txt").readText())
+                            val content = "index.txt"
+                            val file = File(content)
+                            //call.respondText(File(content).readText())
+                            //call.application.environment.log.info("${call.request.origin.remoteHost} tried to get $content")
+                            call.response.header("Content-Disposition", "attachment; filename=\"${file.name}\"")
+                            call.respondFile(file)
+                        }
+                        static("static") {
+                            file("image.jpg")
                         }
                     }
                 }.start(wait = false)
