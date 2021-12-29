@@ -13,7 +13,7 @@
 [![Windows](https://badgen.net/badge/icon/windows?icon=windows&label)](https://microsoft.com/windows/)
 [![GitHub license](https://badgen.net/github/license/Dannode36/KACL)](https://github.com/Dannode36/KACL/blob/master/LICENSE)
 
-### Total Downloads
+### Download Stats!
 [![Github all releases](https://img.shields.io/github/downloads/Dannode36/KACL/total.svg)](https://GitHub.com/Dannode36/KACL/releases/)
 [![Github releases (by release)](https://img.shields.io/github/downloads/Dannode36/KACL/latest/total.svg)](https://GitHub.com/Dannode36/KACL/releases/latest)
 
