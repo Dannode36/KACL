@@ -19,4 +19,4 @@
 
 ### Info
 
-Go to the [KACL Wiki](https://github.com/Dannode36/KACL/wiki) for more info (WIP)
+Go to the incomplete [KACL Wiki](https://github.com/Dannode36/KACL/wiki)
